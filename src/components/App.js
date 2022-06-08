@@ -5,6 +5,8 @@ import "./App.css";
 import Message from "./Message";
 import firebase from "firebase/compat/app";
 import FlipMove from "react-flip-move";
+import SendIcon from "@mui/icons-material/Send";
+import { IconButton } from "@mui/material";
 
 function App() {
   const [input, setInput] = useState("");
@@ -49,25 +51,28 @@ function App() {
         src="https://scontent.ftpe8-2.fna.fbcdn.net/v/t39.8562-6/120009688_325579128711709_1736249742330805861_n.png?_nc_cat=1&ccb=1-7&_nc_sid=6825c5&_nc_ohc=DAvpWrur1msAX-yMjjJ&_nc_ht=scontent.ftpe8-2.fna&oh=00_AT8BDx17GpDjJ4GO5ix6F_dzRjIWY4J9QA8BzOiDkJlyjQ&oe=62A512BD"
         alt=""
       />
-      <h1>App 🚀</h1>
+      <h1>Facebook Messenger App 🚀</h1>
       <h2>Welcome {username}</h2>
 
-      <form action="">
-        <FormControl>
-          <InputLabel>Enter a message...</InputLabel>
+      <form className="app__form">
+        <FormControl className="app__formControl">
           <Input
+            className="app__input"
+            placeholder="Enter a message..."
             value={input}
             onChange={(event) => setInput(event.target.value)}
           />
-          <Button
+
+          <IconButton
+            className="app__iconButton"
             disabled={!input}
             variant="contained"
             color="primary"
             type="submit"
             onClick={sendMessage}
           >
-            Send Message
-          </Button>
+            <SendIcon />
+          </IconButton>
         </FormControl>
       </form>
 
