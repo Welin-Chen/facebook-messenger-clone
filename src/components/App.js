@@ -17,6 +17,13 @@ function App() {
   // useEffect = run code on a condition in React
 
   useEffect(() => {
+    const convertTimestamp = (timestamp) => {
+      const date = timestamp?.toDate()?.toLocaleDateString();
+      const time = timestamp?.toDate()?.toLocaleTimeString();
+      const timestampFormat = time + " - " + date;
+      return timestampFormat;
+    };
+
     // Get a list of messages from your database
     db.collection("messages")
       .orderBy("timestamp", "desc")
@@ -25,6 +32,7 @@ function App() {
           snapshot.docs.map((doc) => ({
             id: doc.id,
             message: doc.data(),
+            timestamp: convertTimestamp(doc.data().timestamp),
           }))
         );
       });
@@ -45,14 +53,34 @@ function App() {
     setInput("");
   };
 
+  function getFormattedDate() {
+    const date = new Date();
+
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hour = date.getHours();
+    const min = date.getMinutes();
+    const sec = date.getSeconds();
+
+    const str =
+      year + "/" + month + "/" + day + " - " + hour + ":" + min + ":" + sec;
+    return str;
+  }
+
+  const dateNow = getFormattedDate();
+
   return (
     <div className="App">
       <img
         src="https://scontent.ftpe8-2.fna.fbcdn.net/v/t39.8562-6/120009688_325579128711709_1736249742330805861_n.png?_nc_cat=1&ccb=1-7&_nc_sid=6825c5&_nc_ohc=DAvpWrur1msAX-yMjjJ&_nc_ht=scontent.ftpe8-2.fna&oh=00_AT8BDx17GpDjJ4GO5ix6F_dzRjIWY4J9QA8BzOiDkJlyjQ&oe=62A512BD"
         alt=""
       />
-      <h1>Facebook Messenger App 🚀</h1>
+      <h1 style={{ marginTop: "20px" }}>Facebook Messenger App</h1>
+      <br />
       <h2>Welcome {username}</h2>
+      <br />
+      <p style={{ color: "gray" }}>{dateNow}</p>
 
       <form className="app__form">
         <FormControl className="app__formControl">
@@ -77,8 +105,13 @@ function App() {
       </form>
 
       <FlipMove>
-        {messages?.map(({ id, message }) => (
-          <Message key={id} username={username} message={message} />
+        {messages?.map(({ id, message, timestamp }) => (
+          <Message
+            key={id}
+            username={username}
+            message={message}
+            timestamp={timestamp}
+          />
         ))}
       </FlipMove>
     </div>

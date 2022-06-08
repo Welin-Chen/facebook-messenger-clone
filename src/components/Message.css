@@ -11,8 +11,20 @@
 
 .message__userCard {
   background-color: #0b81ff !important;
+  color: white !important;
+  border-radius: 50px !important;
 }
 
 .message__guestCard {
   background-color: #e9e9eb !important;
+  color: black;
+  border-radius: 50px !important;
+}
+
+.message__userCard__typography {
+  color: lightgray;
+}
+
+.message__guestCard__typography {
+  color: gray;
 }
